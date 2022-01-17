@@ -1,5 +1,5 @@
 from tkinter import *
-import multiprocessing
+from threading import Thread
 import RPi.GPIO as GPIO
 from time import sleep
 import os
@@ -68,55 +68,74 @@ def init():
 # clean up
 def cleanup():
     print("\nCleaning up...")
-    # end thread
-    proc_sensors.terminate()
+    GPIO.cleanup()
     print("Quit...")
-    # close window
-    window.destroy()
+    #window.destroy()
     pass
 
-
-def read_sensors(win):
+# main loop
+def main():
+    # init variables
+    init()
+    ts = TouchSensor(sensor)
+    green_led = LED(light)
+    
     while True:
-        # print out the value of the touch sensor every 0.5 seconds
+        if (ts.get_state() == 1):
+            green_led.on()
+            pass
+        else:
+            green_led.off()
+            pass
         print(ts)
-        sleep(0.5)
-        win.update()
+        time.sleep(0.5)
+    pass
 
+def task():
+    print('starting task...')
+    sleep(1)
+    print('done')
+    
+# create threads
+t1 = Thread(target=task)
+t2 = Thread(target=task)
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print('tasks complete')
+
+if __name__ == '__main__':
+    try:
+#        main()
+        pass
+    except KeyboardInterrupt:
+        pass
+
+cleanup()
+
+"""
+def thread_target():
+    global stop_thread
+    ts = TouchSensor(sensor)
+    while True:
+        if stop_thread:
+            break
+        print(ts.str())
+        time.sleep(2)
+        
 class MyWindow:
     def __init__(self, win):
         init()
-        # holds ts value
-        self.ts_value = StringVar()
-
-        # widgets
-        self.lbl_ts = Label(win, text="Touch Sensor: ")
-        self.lbl_ts.grid(row=0, column=0)
-        self.lbl_ts_value = Label(win, text=self.ts_value.get())
-        self.lbl_ts_value.grid(row=0, column=1)
+        self.lbl_touchsensor = Label(win, text="Touch Sensor: ", fg='white').grid(row=0, column=0)
+        self.lbl_touchsensor_output = Label(win, text=touch_state, fg='white').grid(row=0, column=1)
         self.btn_reinit = Button(win, text='Init', padx=40, pady=20, command=init).grid(row=1, column=0)
         self.btn_quit = Button(win, text='Quit', padx=40, pady=20, command=cleanup).grid(row=1, column=1)
-        pass
+        
 
-    # attempts to update label value
-    def update(self):
-        state = str(ts.get_state())
-        self.ts_value.set(state)
-
-
-# init sensors and board
-init()
-ts = TouchSensor(sensor)
-green_led = LED(light)
-
-# create tkinter window
 window = Tk()
 mywin = MyWindow(window)
 window.title('Home Environment')
-
-# a thread to collect sensor data
-proc_sensors = multiprocessing.Process(target=read_sensors, args=(mywin,))
-proc_sensors.start()    
-
+t1 = threading.Thread(target=thread_target).start()
 window.mainloop()
-GPIO.cleanup()
+"""
