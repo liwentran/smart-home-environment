@@ -1,38 +1,73 @@
+"""Kookye Sensors on the RaspberryPi
+
+This module allows you to read data from the sensors and control them.
+
+Example:
+     Call sensors.init() to set the pi to accept pins
+     Create the sensor and initialize with the pin number
+         mock_sensor = sensors.MockSensor()
+     Get the an output with get_state() or get_value()
+         mock_sensor.get_state()
+"""
+
 import RPi.GPIO as GPIO
 from time import sleep
 import os
 import random
 
-# GPIO port init
+
 def init():
+    """Initializes the RaspberryPI for the sensors
+
+    Sets the board mode to GPIO.BCM
+    """
     GPIO.setmode(GPIO.BCM)
     print('GPIO initialized')
 
-# GPIO clean up
 def cleanup():
+    """Cleans up the RaspberryPI
+    
+    Calls GPIO.cleanup()
+    """
     GPIO.cleanup()
     print('GPIO Cleaned up')
 
-# LED light bulb
+
 class LED:
+    """A class used to represent an LED light
+    
+    Args:
+        pin: The GPIO pin number the LED is connected to (use pinout to look up)
+
+    Attributes:
+        pin: An integer that stores pin number
+    
+    """
+    
     # LED init
     def __init__(self, pin):
         self.pin = pin
         GPIO.setup(pin, GPIO.OUT, initial=0)
         pass
 
-    # turn on LED
     def on(self):
+        """Turns on the light
+        """
+        
         GPIO.output(self.pin, 1)
         pass
 
-    # turn off LED
     def off(self):
+        """Turns off the light
+        """
+
         GPIO.output(self.pin, 0)
         pass
 
-    # LED blinks once
+
     def blink_once(self):
+        """LED blinks once
+        """
         self.on()
         time.sleep(0.5)
         self.off()
