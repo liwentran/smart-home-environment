@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 import os
+import random
 
 # GPIO port init
 def init():
