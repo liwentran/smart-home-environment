@@ -9,6 +9,7 @@
 import smbus
 import time
 import Adafruit_DHT
+import adafruit_dht #this is the correct library, see temp_v3.py code
 import RPi.GPIO as GPIO
 
 #define GPIO 14 as DHT11 data pin

@@ -21,11 +21,15 @@ class Window:
         self.touch_state = 0    
         init()
         self.win = win
-        self.lbl_touchsensor = tk.Label(win, text="Touch Sensor: ").grid(row=0, column=0)
+        empty = tk.Label(root, width=3, height=3)
+        empty.grid(column=0, row = 0)
+        self.lbl_touchsensor = tk.Label(win, text="Touch Sensor: ").grid(row=4, column=0)
         self.lbl_touchsensor_output = tk.Label(win, text=mock_sensor.get_state())
-        self.lbl_touchsensor_output.grid(row=0, column=1)
-        self.btn_reinit = tk.Button(win, text='Init', padx=40, pady=20, command=init).grid(row=1, column=0)
-        self.btn_quit = tk.Button(win, text='Quit', padx=40, pady=20, command=self.cleanup).grid(row=1, column=1)
+        self.lbl_touchsensor_output.grid(row=4, column=1)
+        empty2 = tk.Label(root, width=3, height=3)
+        empty2.grid(column=0, row=5)
+        self.btn_reinit = tk.Button(win, text='Init', padx=40, pady=20, command=init).grid(row=8, column=0)
+        self.btn_quit = tk.Button(win, text='Quit', padx=40, pady=20, command=self.cleanup).grid(row=8, column=1)
         pass
 
     def cleanup(self):
@@ -38,6 +42,7 @@ class Window:
         self.win.after(1000, self.update)
 
 
+        
 mock_sensor = sensors.MockSensor()
 root = tk.Tk()
 mywin = Window(root)
