@@ -10,7 +10,7 @@ This module allows you to read data from the sensors and control them.
         mock_sensor.get_state()
 """
 
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 from time import sleep
 import os
 import random
@@ -67,7 +67,7 @@ class LED:
     def blink_once(self):
         """LED blinks once """
         self.on()
-        time.sleep(0.5)
+        sleep(0.5)
         self.off()
         pass
 
@@ -84,10 +84,11 @@ class Touch:
     
     def __init__(self, pin):
         """Inits Touch with pin"""
+        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         self.pin = pin
         self.touch_state = self.get_state()
-        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-
+        pass
+    
     def get_state(self):
         """Fetches the state of the touch sensor
 
