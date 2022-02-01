@@ -2,6 +2,7 @@ import sensors
 import dht11
 from time import sleep
 import RPi.GPIO as GPIO
+import smoke_detector
 
 # main loop
 def main():
@@ -22,6 +23,7 @@ def main():
         result = temp_and_humid.read()
         print("Temp: ", result.temperature, "C", " Humidity: ", result.humidity, "%", sep = "")
         print()
+        print("Smoke/gas?: ", adc.read(channel = 3)); 
         sleep(2)
 
 
