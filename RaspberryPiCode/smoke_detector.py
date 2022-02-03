@@ -50,8 +50,8 @@ class smoke_detector:
             GPIO.output(clockpin, True)
             GPIO.output(clockpin, False)
             adcout <<= 1
-                if (GPIO.input(misopin)):
-                    adcout |= 0x1
+            if (GPIO.input(misopin)):
+                adcout |= 0x1
 
         GPIO.output(cspin, True)
         
@@ -61,7 +61,7 @@ class smoke_detector:
     #main ioop
     def main():
         init()
-        print"please wait..."
+        print("please wait...")
         time.sleep(20)
         while True:
             COlevel=readadc(mq2_apin, SPICLK, SPIMOSI, SPIMISO, SPICS)
@@ -71,7 +71,7 @@ class smoke_detector:
                 time.sleep(0.5)
             else:
                 print("Gas leakage")
-                print"Current Gas AD vaule = " +str("%.2f"%((COlevel/1024.)*3.3))+" V"
+                print("Current Gas AD vaule = " +str("%.2f"%((COlevel/1024.)*3.3))+" V")
                 time.sleep(0.5)
 
 if __name__ =='__main__':

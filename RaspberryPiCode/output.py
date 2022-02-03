@@ -22,9 +22,9 @@ def main():
         #print("temp and humid" , adc.read(channel = 2))
         result = temp_and_humid.read()
         print("Temp: ", result.temperature, "C", " Humidity: ", result.humidity, "%", sep = "")
+        print("Smoke/gas?: ", adc.read(channel = 3));
         print()
-        print("Smoke/gas?: ", adc.read(channel = 3)); 
-        sleep(2)
+        sleep(3)
 
 
 if __name__ == '__main__':
