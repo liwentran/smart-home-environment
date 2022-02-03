@@ -15,7 +15,6 @@ def main():
     GPIO.setup(4, GPIO.IN)
 
     count = 0
-    
     while True:
         print(touch_sensor)
         print("Light Level: ", adc.read(channel = 0))
@@ -23,15 +22,14 @@ def main():
         print("Gas: ", adc.read(channel = 2))
         print("Water Level: ", adc.read(channel = 3))
         print("Vibration: ", adc.read(channel = 4))
-        #online datasheet indicates that dht11 has a 6 second response time        
+        print("Sound Level: ", adc.read(channel = 5))
+        #online datasheet indicates that dht11 has a 6 second response time
         if (count % 2 == 0):
             result = temp_and_humid.read()
             print("Temp: ", result.temperature, "C", " Humidity: ", result.humidity, "%", sep = "")
-
         print()
         count += 1
-        
-        sleep(3)
+        sleep(1)
 
 
 if __name__ == '__main__':
