@@ -14,16 +14,22 @@ def main():
     light.blink_once()
     GPIO.setup(4, GPIO.IN)
 
+    count = 0
     
     while True:
         print(touch_sensor)
         print("photo sensor: ", adc.read(channel = 0))
         print("fire: ", adc.read(channel = 1))
-        #print("temp and humid" , adc.read(channel = 2))
-        result = temp_and_humid.read()
-        print("Temp: ", result.temperature, "C", " Humidity: ", result.humidity, "%", sep = "")
         print("Smoke/gas?: ", adc.read(channel = 3));
+
+        #online datasheet indicates that dht11 has a 6 second response time        
+        if (count % 2 == 0):
+            result = temp_and_humid.read()
+            print("Temp: ", result.temperature, "C", " Humidity: ", result.humidity, "%", sep = "")
+
         print()
+        count += 1
+        
         sleep(3)
 
 
