@@ -22,7 +22,7 @@ def main():
         print("Fire: ", adc.read(channel = 1))
         print("Gas: ", adc.read(channel = 2))
         print("Water Level: ", adc.read(channel = 3))
-
+        print("Vibration: ", adc.read(channel = 4))
         #online datasheet indicates that dht11 has a 6 second response time        
         if (count % 2 == 0):
             result = temp_and_humid.read()
