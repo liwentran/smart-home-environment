@@ -18,9 +18,10 @@ def main():
     
     while True:
         print(touch_sensor)
-        print("photo sensor: ", adc.read(channel = 0))
-        print("fire: ", adc.read(channel = 1))
-        print("Smoke/gas?: ", adc.read(channel = 3));
+        print("Light Level: ", adc.read(channel = 0))
+        print("Fire: ", adc.read(channel = 1))
+        print("Gas: ", adc.read(channel = 2))
+        print("Water Level: ", adc.read(channel = 3))
 
         #online datasheet indicates that dht11 has a 6 second response time        
         if (count % 2 == 0):

@@ -105,9 +105,9 @@ class Touch:
         Returns: 
              The string representation of the state. For example:
              
-             Touch Sensor State: Touched
+             Touch Sensor: Touched
         """
-        s = "Touch Sensor State: "
+        s = "Touch Sensor: "
         if (self.get_state() == 1):
             s += "Touched"
         else:

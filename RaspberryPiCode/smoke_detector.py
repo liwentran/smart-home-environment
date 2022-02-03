@@ -14,7 +14,6 @@ class smoke_detector:
     #port init
     def init():
         GPIO.setwarnings(False)
-        GPIO.cleanup()			#clean up at the end of your script
         GPIO.setmode(GPIO.BCM)		#to specify whilch pin numbering system
         # set up the SPI interface pins
         GPIO.setup(SPIMOSI, GPIO.OUT)
