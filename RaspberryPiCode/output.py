@@ -1,5 +1,7 @@
 import sensors
 import dht11
+#contained in the Adafruit-Raspberry-Pi-Python-Code folder, but cannot be found
+#from Adafruit_BMP085 import BMP085
 from time import sleep
 import RPi.GPIO as GPIO
 import smoke_detector
@@ -8,6 +10,7 @@ import smoke_detector
 # main loop
 def main():
     sensors.init()
+    #altitude_sensor = BMP085(0x77, 2) #give second arg between 0-3 for different sensor resolution
     adc = sensors.MCP3008()
     touch_sensor = sensors.Touch(26)
     light = sensors.LED(18)
@@ -25,6 +28,8 @@ def main():
         print("Vibration: ", adc.read(channel = 4))
         print("Sound Level: ", adc.read(channel = 5))
         print("Carbon Monoxide: ", adc.read(channel = 7))
+        #print("Pressure: %.2f hPa", (altitude_sensor.readPressure() / 100)) #can also call .readTemperature() and .readAltitude()
+
         #online datasheet indicates that dht11 has a 6 second response time
         if (count % 2 == 0):
             result = temp_and_humid.read()
