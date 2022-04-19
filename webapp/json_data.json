@@ -1,0 +1,12 @@
+import json
+
+data = {
+    'data' : [
+	{
+	    'example' : 'example!',
+	}
+    ]
+}
+
+json_string = json.dumps(data)
+print(json_string)
