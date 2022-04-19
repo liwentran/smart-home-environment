@@ -2,7 +2,11 @@ from flask import Flask, render_template
 from flask import Flask
 from flask import request
 from flask import jsonify, make_response
+import json
+import sys
 import datetime
+#sys.path.insert(0, '/home/pi/smart-home-environment/RaspberryPiCode/generate.py') 
+import generate_json.py
 
 app = Flask(__name__)
 
@@ -30,11 +34,24 @@ def postJsonHandler():
     else:
         #return "Request was not JSON", 400
         return make_response(jsonify({"message": "Request body must be JSON"}), 400)
-    
-#@app.route('/secondPage')
-#def pageTwo():
-    #return 'this is page 2'
 
+@app.route('/sensordata', methods=['POST'])
+def sensordata():
+    generate_json.generate()
+    with open('sensor_data.json') as json_file:
+        data = json.load(json_file)
+    response_body = {
+        "Light Level " : req.get("lightlevel"),
+        "Fire: " : req.get("fire"),
+        "Gas: " : req.get("gas"),
+        "Water Level: " : req.get("waterlevel"),
+        "Vibration: " : req.get("vibration"),
+        "Sound Level: " : req.get("soundlevel"),
+        "Carbon Monoxide: " : req.get("carbonmonoxide")
+    }
+    res = make_response(jsonify(response_body), 200)
+    return res
+    
 if __name__ == '__main__':
     from waitress import serve
     serve(app, host='0.0.0.0', port=8080)
