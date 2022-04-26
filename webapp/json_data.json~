@@ -1,0 +1,14 @@
+import json
+import myFile from ../RaspberryPiCode/output.py
+
+with open(
+data = {
+    'data' : [
+	{
+	    'example' : 'example!',
+	}
+    ]
+}
+
+json_string = json.dumps(data)
+print(json_string)

@@ -6,7 +6,10 @@ import json
 import sys
 import datetime
 #sys.path.insert(0, '/home/pi/smart-home-environment/RaspberryPiCode/generate.py') 
-import generate_json.py
+#import generate_json.py
+#import pi.smart-home-environment.RaspberryPiCode.generate_json
+sys.path.append('/home/pi/smart-home-environment/RaspberryPiCode')
+import generate_json
 
 app = Flask(__name__)
 
