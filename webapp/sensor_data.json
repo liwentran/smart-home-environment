@@ -1,0 +1,12 @@
+{
+    "humidity": 69, 
+    "fire": 677, 
+    "lightlevel": 451, 
+    "temperature": 24, 
+    "vibration": 40, 
+    "touch": 0, 
+    "carbonmonoxide": 761, 
+    "soundlevel": 15, 
+    "gas": 303, 
+    "waterlevel": 31
+}

@@ -22,7 +22,7 @@ def index():
       }
     return render_template('index.html', **templateData)
 
-@app.route('/postjson', methods=['POST'])
+@app.route('/postjson', methods=['GET', 'POST'])
 def postJsonHandler():
     if request.is_json:
         req = request.get_json()
@@ -38,22 +38,24 @@ def postJsonHandler():
         #return "Request was not JSON", 400
         return make_response(jsonify({"message": "Request body must be JSON"}), 400)
 
-@app.route('/sensordata', methods=['POST'])
+@app.route('/sensordata', methods=['GET', 'POST'])
 def sensordata():
     generate_json.generate()
+    req = request.get_json()
+    
     with open('sensor_data.json') as json_file:
         data = json.load(json_file)
-    response_body = {
-        "Light Level " : req.get("lightlevel"),
-        "Fire: " : req.get("fire"),
-        "Gas: " : req.get("gas"),
-        "Water Level: " : req.get("waterlevel"),
-        "Vibration: " : req.get("vibration"),
-        "Sound Level: " : req.get("soundlevel"),
-        "Carbon Monoxide: " : req.get("carbonmonoxide")
-    }
-    res = make_response(jsonify(response_body), 200)
-    return res
+    # response_body = {
+    #     "Light Level " : req.get("lightlevel"),
+    #     "Fire: " : req.get("fire"),
+    #     "Gas: " : req.get("gas"),
+    #     "Water Level: " : req.get("waterlevel"),
+    #     "Vibration: " : req.get("vibration"),
+    #     "Sound Level: " : req.get("soundlevel"),
+    #     "Carbon Monoxide: " : req.get("carbonmonoxide")
+    # }
+    res = make_response(jsonify(data), 200)
+    return render_template('data.html', **data)
     
 if __name__ == '__main__':
     from waitress import serve
